@@ -1,0 +1,133 @@
+body {
+    background-color: #111111;
+}
+
+h1{
+    color: white;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    width: 95%;
+    margin-left: -.4px;
+    background-color: blue;
+}
+
+.display-container{
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    padding-left: 10px;
+    border: 3px solid blue;
+    color: blue;
+}
+
+.windData {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding-left: 10px;
+    margin-top: 10px;
+    border: 3px solid green;
+    color: green;
+}
+
+.data {
+    margin-top: 0px;
+}
+
+.bold-text {
+    font-weight: 700;
+}
+
+.current-weather-container {
+    background-color: #5bbcfd;
+    border: solid 1px white;
+    color: white;
+    width: 500px;
+    margin: 20px;
+    
+}
+
+.container-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px 10px 0px 10px;
+    margin-bottom: -10px; 
+}
+
+.container-body {
+    display: flex;
+}
+
+.temp-cloud-container {
+    display: flex;
+}
+
+.temps-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: -20px;
+}
+
+.skyCond {
+    width: 75px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.cur-temp-container {
+    font-size: 60px;
+    margin-bottom: -30px;
+}
+
+.wind-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.wind {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    padding: 0px 10px 0px 10px;
+    margin-bottom: -10px;
+}
+
+.upper-winds-container {
+    background-color: #5bbcfd ;
+    border: solid 1px white;
+    color: white;
+    width: 500px;
+    margin: 20px;
+}
+
+.upper-winds-header {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 5px;
+    margin-bottom: -5px;
+}
+
+.line-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px 0px 10px
+}
+
+.hr1 {
+    width: 500px;
+    border: none;
+    height: 2px;
+    background-color: white;
+}
+
+.hr2 {
+    width: 500px;
+    margin-top: -10px;
+    height: 2px;
+    background-color: white;
+    
+}
