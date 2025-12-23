@@ -7,8 +7,6 @@ async function generalData() {
         dataArray = Object.values(weatherData.current)
         let roundedData = dataArray.map(num => Math.round(num))
 
-        parArray = ["temp", "wind", "winddir", "gust", "cloudcvr", "pres", "apptemp", "hum", "precip"]
-
         let curTemp = roundedData[2]
         document.getElementById("cur-temp").innerText = `${curTemp}°`
         let feelTemp = roundedData[8]
@@ -22,14 +20,7 @@ async function generalData() {
         document.getElementById("cloud-cvr").innerText = `${cloudCvr}%`
 
         svgIcon(cloudCvr)
-
         
-        for (i = 0; i < parArray.length; i++) {
-            let para = document.getElementById(parArray[i])
-            para.textContent += roundedData[(i + 2)]
-        }
-        
-
     } catch (error) {
         console.log("API Error")
     }   

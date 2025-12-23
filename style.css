@@ -6,35 +6,8 @@ h1{
     color: white;
 }
 
-hr {
-    border: none;
-    height: 1px;
-    width: 95%;
-    margin-left: -.4px;
-    background-color: blue;
-}
-
-.display-container{
-    display: flex;
-    flex-direction: column;
-    width: 260px;
-    padding-left: 10px;
-    border: 3px solid blue;
-    color: blue;
-}
-
-.windData {
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    padding-left: 10px;
-    margin-top: 10px;
-    border: 3px solid green;
-    color: green;
-}
-
-.data {
-    margin-top: 0px;
+.page-title {
+    margin-left: 20px;
 }
 
 .bold-text {
