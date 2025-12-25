@@ -11,40 +11,40 @@
     <body>
         <h1 class="page-title">Skydive Spaceland Dallas Weather</h1>
 
-        <div class="current-weather-container rounded-2">
+        <div class="col col-12 col-sm-8 col-md-6 col-lg-5 rounded-2 current-weather-container">
             <div class="container-header">
-                <div class="titel-time-container">Current Weather</div>
-                <div class="current-time" id="time"></div>
+                <div>Current Weather</div>
+                <div id="time"></div>
             </div>
-            <hr class="hr1">
+            <hr class="col col-12 hr1">
             <div class="container-body">
-                <div class="temp-cloud-container">
+                <div class="col col-sm-6 col-md-6 col-lg-4 temp-cloud-container">
                     <div>
                         <img class="skyCond" src="" alt="" id="sky-cond">
                     </div>
-                    <div class="temps-container">
+                    <div class="col col-sm-12 col-md-12 col-lg-12 temps-container">
                         <div class="cur-temp-container">
                             <p class="temp" id="cur-temp"></p>
                         </div>
-                        <div class="feelslike-temp">
+                        <div class="">
                             <p class="feeltemp" id="feels-temp"></p>
                         </div>
                     </div>
                 </div>
-                <div class="wind-container">
-                    <div class="wind">
+                <div class="col col-sm-6 col-md-6 col-lg-8 wind-container">
+                    <div class="col col-12 col-md-12 col-lg-8 wind">
                         <p>Wind</p>
                         <p class="bold-text" id="sur-wind"></p>
                     </div>
-                    <div class="wind">
+                    <div class="col col-12 col-md-12 col-lg-8 wind">
                         <p>Wind Gusts</p>
                         <p class="bold-text" id="wind-gust"></p>
                     </div>
-                    <div class="wind">
+                    <div class="col col-12 col-md-12 col-lg-8 wind">
                         <p>Cloud Coverage</p>
                         <p class="bold-text" id="cloud-cvr"></p>
                     </div>
-                    <div class="wind">
+                    <div class="col col-12 col-md-12 col-lg-8 wind">
                         <p>Humidity</p>
                         <p class="bold-text" id="humidity"></p>
                     </div>
@@ -52,10 +52,16 @@
             </div>
         </div>
 
-        <div class="upper-winds-container rounded-2">
-            <div class="upper-winds-header">Winds Aloft</div>
-            <hr class="hr1">
+        <div class="col col-12 col-sm-8 col-md-6 col-lg-5 upper-winds-container rounded-2">
+            <div class="upper-winds-header">Current Winds Aloft</div>
+            <hr class="col col-12 hr1">
             <div class="upper-wind-body" id="upperWinds"></div>
+        </div>
+
+        <div class="col col-12 col-sm-8 col-md-6 col-lg-5 forecast-upper-winds-container rounded-2">
+            <div class="forecast-upper-winds-header">Current Winds Aloft</div>
+            <hr class="col col-12 hr1">
+            <div class="forecast-upper-wind-body" id="forecastUpperWinds"></div>
         </div>
 
         

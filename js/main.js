@@ -9,13 +9,14 @@ async function generalData() {
         let roundedData = dataArray.map(num => Math.round(num))
         let isDay = weatherData.current.is_day
 
+
         let curTemp = roundedData[2]
         document.getElementById("cur-temp").innerText = `${curTemp}°`
         let feelTemp = roundedData[7]
         document.getElementById("feels-temp").innerText = `Feels Like: ${feelTemp}°`
         let surWind = roundedData[3]
-        let windDir = roundedData[4]
-        document.getElementById("sur-wind").innerText = `${windDir}° ${surWind} mph`
+        let windDir = determineWindDir(roundedData[4])
+        document.getElementById("sur-wind").innerText = `${windDir} ${surWind} mph`
         let windGust = roundedData[5]
         document.getElementById("wind-gust").innerText = `${windGust} mph`
         let cloudCvr = roundedData[6]
@@ -56,15 +57,68 @@ function svgIcon(cvr, day) {
     }
 }
 
+function determineWindDir(dir) {
+    cardDir = ""
+
+    const directions = [
+        {min: 348.5, max: 10.5, val: "N"},
+        {min: 10.5, max: 33.5, val: "NNE"},
+        {min: 33.5, max: 56.5, val: "NE"},
+        {min: 56.5, max: 78.5, val: "ENE"},
+        {min: 78.5, max: 101.5, val: "E"},
+        {min: 101.5, max: 123.5, val: "ESE"},
+        {min: 123.5, max: 146.5, val: "SE"},
+        {min: 146.5, max: 168.5, val: "SSE"},
+        {min: 168.5, max: 191.5, val: "S"},
+        {min: 191.5, max: 213.5, val: "SSW"},
+        {min: 213.5, max: 236.5, val: "SW"},
+        {min: 236.5, max: 258.5, val: "WSW"},
+        {min: 258.5, max: 281.5, val: "W"},
+        {min: 281.5, max: 303.5, val: "WNW"},
+        {min: 303.5, max: 326.5, val: "NW"},
+        {min: 326.5, max: 348.5, val: "NNW"},
+    ]
+
+    if (dir > 348.5) {
+        dir = dir - 360
+    }
+
+    for (i = 0; i <= 15; i++){
+        if (dir < 10.5) {
+            cardDir = directions[i].val
+            return cardDir
+        } else if (dir > directions[i].min && dir < directions[i].max) {
+            cardDir = directions[i].val
+            return cardDir
+        } else {
+            continue
+        }
+    }
+}
+
 async function uppersData() {
     try {
-        let windResponse = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=33.45&longitude=-96.38&hourly=,wind_speed_975hPa,wind_speed_950hPa,wind_speed_925hPa,wind_speed_900hPa,wind_speed_850hPa,wind_speed_800hPa,wind_speed_700hPa,wind_speed_600hPa,wind_direction_975hPa,wind_direction_950hPa,wind_direction_925hPa,wind_direction_900hPa,wind_direction_850hPa,wind_direction_800hPa,wind_direction_700hPa,wind_direction_600hPa&forecast_days=1&wind_speed_unit=mph&temperature_unit=fahrenheit`)
-        let windData = await windResponse.json()
-        //console.log(windData)
-
         let upperResponse = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=33.45&longitude=-96.38&hourly=temperature_2m,temperature_950hPa,temperature_925hPa,temperature_875hPa,temperature_850hPa,temperature_825hPa,temperature_775hPa,temperature_750hPa,temperature_725hPa,temperature_700hPa,temperature_675hPa,temperature_650hPa,temperature_625hPa,temperature_600hPa,temperature_575hPa,temperature_550hPa,wind_speed_950hPa,wind_speed_925hPa,wind_speed_875hPa,wind_speed_850hPa,wind_speed_825hPa,wind_speed_775hPa,wind_speed_750hPa,wind_speed_725hPa,wind_speed_700hPa,wind_speed_675hPa,wind_speed_650hPa,wind_speed_625hPa,wind_speed_600hPa,wind_speed_575hPa,wind_speed_550hPa,wind_direction_950hPa,wind_direction_925hPa,wind_direction_875hPa,wind_direction_850hPa,wind_direction_825hPa,wind_direction_775hPa,wind_direction_750hPa,wind_direction_725hPa,wind_direction_700hPa,wind_direction_675hPa,wind_direction_650hPa,wind_direction_625hPa,wind_direction_600hPa,wind_direction_575hPa,wind_direction_550hPa&models=gfs_seamless&forecast_days=1&wind_speed_unit=mph&temperature_unit=fahrenheit`)
         let upperData = await upperResponse.json()
-        //console.log(upperData)
+        console.log(upperData)
+
+        const pressElevation = [
+            "950hPa",
+            "925hPa",  
+            "875hPa", 
+            "850hPa", 
+            "825hPa", 
+            "775hPa",
+            "750hPa",
+            "725hPa",
+            "700hPa",
+            "675hPa",
+            "650hPa",
+            "625hPa",
+            "600hPa",
+            "575hPa",
+            "550hPa"
+        ]
 
         const elevationArray = [
             "1000 ft:",
@@ -84,80 +138,25 @@ async function uppersData() {
             "15000 ft:"
         ]
 
-        const upperspeedArray = [ 
-            "wind_speed_950hPa",
-            "wind_speed_925hPa",  
-            "wind_speed_875hPa", 
-            "wind_speed_850hPa", 
-            "wind_speed_825hPa", 
-            "wind_speed_775hPa",
-            "wind_speed_750hPa",
-            "wind_speed_725hPa",
-            "wind_speed_700hPa",
-            "wind_speed_675hPa",
-            "wind_speed_650hPa",
-            "wind_speed_625hPa",
-            "wind_speed_600hPa",
-            "wind_speed_575hPa",
-            "wind_speed_550hPa",
-        ]
-
-        const upperdirArray = [ 
-            "wind_direction_950hPa",
-            "wind_direction_925hPa",  
-            "wind_direction_875hPa", 
-            "wind_direction_850hPa", 
-            "wind_direction_825hPa", 
-            "wind_direction_775hPa",
-            "wind_direction_750hPa",
-            "wind_direction_725hPa",
-            "wind_direction_700hPa",
-            "wind_direction_675hPa",
-            "wind_direction_650hPa",
-            "wind_direction_625hPa",
-            "wind_direction_600hPa",
-            "wind_direction_575hPa",
-            "wind_direction_550hPa",
-        ]
-
-        const uppertempArray = [ 
-            "temperature_950hPa",
-            "temperature_925hPa",  
-            "temperature_875hPa", 
-            "temperature_850hPa", 
-            "temperature_825hPa", 
-            "temperature_775hPa",
-            "temperature_750hPa",
-            "temperature_725hPa",
-            "temperature_700hPa",
-            "temperature_675hPa",
-            "temperature_650hPa",
-            "temperature_625hPa",
-            "temperature_600hPa",
-            "temperature_575hPa",
-            "temperature_550hPa",
-        ]
-
         let upperSpeed = []
         let upperDir = []
         let upperTemp = []
 
-        for (e of upperspeedArray) {
-            let upSpeed = Math.round(upperData.hourly[e][0])
+        for (e of pressElevation) {
+            const speedConcact = "wind_speed_" + e
+            const dirConcact = "wind_direction_" + e
+            const tempConcact = "temperature_" + e
+            
+            let upSpeed = Math.round(upperData.hourly[speedConcact][0])
+            let upDir = Math.round(upperData.hourly[dirConcact][0])
+            let upTemp = Math.round(upperData.hourly[tempConcact][0])
+
             upperSpeed.push(upSpeed)
-        }
-
-        for (e of upperdirArray) {
-            let upDir = Math.round(upperData.hourly[e][0])
             upperDir.push(upDir)
-        }
-
-        for (e of uppertempArray) {
-            let upTemp = Math.round(upperData.hourly[e][0])
             upperTemp.push(upTemp)
         }
-
-        for (i = 0; i < upperspeedArray.length; i++) {
+        
+        for (i = 0; i < pressElevation.length; i++) {
             newDiv = document.createElement('div')
             newDiv.classList.add('line-container')
             newDiv.id = 'upperLine' + i
@@ -172,10 +171,12 @@ async function uppersData() {
             document.getElementById("upperLine" + i).appendChild(newPar2)
 
             newHR = document.createElement('hr')
+            newHR.classList.add('col-12')
             newHR.classList.add('hr2')
             document.getElementById("upperWinds").appendChild(newHR)
         }
-    
+
+        
     } catch (error) {
         console.log("wind api error")
     }
@@ -197,3 +198,4 @@ function getTime() {
 generalData()
 uppersData()
 getTime()
+
