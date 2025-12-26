@@ -1,3 +1,45 @@
+const pressE = [
+    "950hPa",
+    "925hPa",  
+    "875hPa", 
+    "850hPa", 
+    "825hPa", 
+    "775hPa",
+    "750hPa",
+    "725hPa",
+    "700hPa",
+    "675hPa",
+    "650hPa",
+    "625hPa",
+    "600hPa",
+    "575hPa",
+    "550hPa"
+]
+
+const elevationA = [
+    "1000 ft:",
+    "2000 ft:",
+    "3000 ft:",
+    "4000 ft:",
+    "5000 ft:",
+    "6000 ft:",
+    "7000 ft:",
+    "8000 ft:",
+    "9000 ft:",
+    "10000 ft:",
+    "11000 ft:",
+    "12000 ft:",
+    "13000 ft:",
+    "14000 ft:",
+    "15000 ft:"
+]
+
+let hour = 1
+const prevButton = document.getElementById("prevHour")
+const nextButton = document.getElementById("nextHour")
+prevButton.addEventListener("click", prevHour)
+nextButton.addEventListener("click", nextHour)
+
 async function generalData() {
     try {
         let weatherResponse = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=33.45&longitude=-96.38&current=temperature_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,cloud_cover,apparent_temperature,relative_humidity_2m,&current=is_day&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`)
@@ -143,10 +185,12 @@ async function parseCurrentData(pressElevation, elevationArray) {
             newPar2.innerText = `${upperTemp[i]}°F`
             document.getElementById("upperLine" + i).appendChild(newPar2)
 
+            if (i < pressElevation.length - 1) {
             newHR = document.createElement('hr')
             newHR.classList.add('col-12')
             newHR.classList.add('hr2')
             document.getElementById("upperWinds").appendChild(newHR)
+            }
         }
     } catch (error) {
         console.log("wind api error")
@@ -197,10 +241,12 @@ async function ParseForecastData(pressElevation, elevationArray, hour) {
             forNewPar2.innerText = `${forecastTemp[i]}°F`
             document.getElementById("forupperLine" + i).appendChild(forNewPar2)
 
+            if (i < pressElevation.length - 1) {
             forNewHR = document.createElement('hr')
             forNewHR.classList.add('col-12')
             forNewHR.classList.add('hr2')
             document.getElementById("forecastUpperWinds").appendChild(forNewHR)
+            }
         }
     } catch (error) {
         console.log(error)
@@ -223,7 +269,7 @@ function getTime() {
 
 function getForecastTime() {
     const now = new Date()
-    let hours = 22
+    let hours = now.getHours()
     let forecastHour = hours + hour
     let ampm = "AM"
     if (forecastHour > 36) {
@@ -247,8 +293,6 @@ function getForecastTime() {
     return display
 }
 
-let hour = 1
-
 function prevHour(event) {
     if (hour > 1) {
         hour = hour - 1
@@ -262,44 +306,6 @@ function nextHour(event) {
     ParseForecastData(pressE, elevationA, hour)
 }
 
-const pressE = [
-            "950hPa",
-            "925hPa",  
-            "875hPa", 
-            "850hPa", 
-            "825hPa", 
-            "775hPa",
-            "750hPa",
-            "725hPa",
-            "700hPa",
-            "675hPa",
-            "650hPa",
-            "625hPa",
-            "600hPa",
-            "575hPa",
-            "550hPa"
-        ]
-
-        const elevationA = [
-            "1000 ft:",
-            "2000 ft:",
-            "3000 ft:",
-            "4000 ft:",
-            "5000 ft:",
-            "6000 ft:",
-            "7000 ft:",
-            "8000 ft:",
-            "9000 ft:",
-            "10000 ft:",
-            "11000 ft:",
-            "12000 ft:",
-            "13000 ft:",
-            "14000 ft:",
-            "15000 ft:"
-        ]
-
- 
-
 generalData()
 uppersData()
 parseCurrentData(pressE, elevationA)
@@ -307,10 +313,4 @@ ParseForecastData(pressE, elevationA, hour)
 getTime()
 
 
-const prevButton = document.getElementById("prevHour")
-const nextButton = document.getElementById("nextHour")
-
-prevButton.addEventListener("click", prevHour)
-
-nextButton.addEventListener("click", nextHour)
 
