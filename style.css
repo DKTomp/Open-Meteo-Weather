@@ -87,6 +87,20 @@ h1{
     padding: 0px 10px 0px 10px
 }
 
+.forecast-upper-winds-container {
+    background-color: #5bbcfd ;
+    border: solid 1px white;
+    color: white;
+    margin: 15px;
+}
+
+.forecast-upper-winds-header {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 5px;
+    margin-bottom: -5px;
+}
+
 .hr1 {
     border: none;
     height: 3px;
