@@ -127,6 +127,13 @@ h1{
     border: solid 1px white;
     color: white;
     margin: 20px 0px 0px 0px;
-}
+    }   
+
+    .forecast-upper-winds-container {
+    background-color: #5bbcfd ;
+    border: solid 1px white;
+    color: white;
+    margin: 20px 0px 0px 0px;
+    }
     
 }
