@@ -35,6 +35,7 @@ const elevationA = [
 ]
 
 let hour = 1
+let upperDataVar = ""
 const prevButton = document.getElementById("prevHour")
 const nextButton = document.getElementById("nextHour")
 prevButton.addEventListener("click", prevHour)
@@ -142,115 +143,109 @@ function determineWindDir(dir) {
 async function uppersData() {
     try {
         let upperResponse = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=33.45&longitude=-96.38&hourly=temperature_2m,temperature_950hPa,temperature_925hPa,temperature_875hPa,temperature_850hPa,temperature_825hPa,temperature_775hPa,temperature_750hPa,temperature_725hPa,temperature_700hPa,temperature_675hPa,temperature_650hPa,temperature_625hPa,temperature_600hPa,temperature_575hPa,temperature_550hPa,wind_speed_950hPa,wind_speed_925hPa,wind_speed_875hPa,wind_speed_850hPa,wind_speed_825hPa,wind_speed_775hPa,wind_speed_750hPa,wind_speed_725hPa,wind_speed_700hPa,wind_speed_675hPa,wind_speed_650hPa,wind_speed_625hPa,wind_speed_600hPa,wind_speed_575hPa,wind_speed_550hPa,wind_direction_950hPa,wind_direction_925hPa,wind_direction_875hPa,wind_direction_850hPa,wind_direction_825hPa,wind_direction_775hPa,wind_direction_750hPa,wind_direction_725hPa,wind_direction_700hPa,wind_direction_675hPa,wind_direction_650hPa,wind_direction_625hPa,wind_direction_600hPa,wind_direction_575hPa,wind_direction_550hPa&models=gfs_seamless&forecast_days=1&wind_speed_unit=mph&temperature_unit=fahrenheit`)
-        let upperData = await upperResponse.json()
-        return upperData
+        upperDataVar = await upperResponse.json()
+        parseCurrentData(pressE, elevationA, upperDataVar)
+        ParseForecastData(pressE, elevationA, hour, upperDataVar)
+        
+        
 
         } catch (error) {
+            console.log(error)
         console.log("wind api error")
     }
 }
 
-async function parseCurrentData(pressElevation, elevationArray) {
-    try{
-        let upperData = await uppersData()
-        let upperSpeed = []
-        let upperDir = []
-        let upperTemp = []
+function parseCurrentData(pressElevation, elevationArray, uppers) {
+    
+    //console.log(uppers)
+    let upperSpeed = []
+    let upperDir = []
+    let upperTemp = []
 
-        for (e of pressElevation) {
-            const speedConcact = "wind_speed_" + e
-            const dirConcact = "wind_direction_" + e
-            const tempConcact = "temperature_" + e
-            
-            let upSpeed = Math.round(upperData.hourly[speedConcact][0])
-            let upDir = Math.round(upperData.hourly[dirConcact][0])
-            let upTemp = Math.round(upperData.hourly[tempConcact][0])
-
-            upperSpeed.push(upSpeed)
-            upperDir.push(upDir)
-            upperTemp.push(upTemp)
-        }
+    for (e of pressElevation) {
+        const speedConcact = "wind_speed_" + e
+        const dirConcact = "wind_direction_" + e
+        const tempConcact = "temperature_" + e
         
-        for (i = 0; i < pressElevation.length; i++) {
-            newDiv = document.createElement('div')
-            newDiv.classList.add('line-container')
-            newDiv.id = 'upperLine' + i
-            document.getElementById("upperWinds").appendChild(newDiv)
+        let upSpeed = Math.round(uppers.hourly[speedConcact][0])
+        let upDir = Math.round(uppers.hourly[dirConcact][0])
+        let upTemp = Math.round(uppers.hourly[tempConcact][0])
 
-            newPar = document.createElement('p')
-            newPar.innerText = `${elevationArray[i]} ${upperDir[i]}° at ${upperSpeed[i]} mph`
-            document.getElementById("upperLine" + i).appendChild(newPar)
+        upperSpeed.push(upSpeed)
+        upperDir.push(upDir)
+        upperTemp.push(upTemp)
+    }
+    
+    for (i = 0; i < pressElevation.length; i++) {
+        newDiv = document.createElement('div')
+        newDiv.classList.add('line-container')
+        newDiv.id = 'upperLine' + i
+        document.getElementById("upperWinds").appendChild(newDiv)
 
-            newPar2 = document.createElement('p')
-            newPar2.innerText = `${upperTemp[i]}°F`
-            document.getElementById("upperLine" + i).appendChild(newPar2)
+        newPar = document.createElement('p')
+        newPar.innerText = `${elevationArray[i]} ${upperDir[i]}° at ${upperSpeed[i]} mph`
+        document.getElementById("upperLine" + i).appendChild(newPar)
 
-            if (i < pressElevation.length - 1) {
-            newHR = document.createElement('hr')
-            newHR.classList.add('col-12')
-            newHR.classList.add('hr2')
-            document.getElementById("upperWinds").appendChild(newHR)
-            }
+        newPar2 = document.createElement('p')
+        newPar2.innerText = `${upperTemp[i]}°F`
+        document.getElementById("upperLine" + i).appendChild(newPar2)
+
+        if (i < pressElevation.length - 1) {
+        newHR = document.createElement('hr')
+        newHR.classList.add('col-12')
+        newHR.classList.add('hr2')
+        document.getElementById("upperWinds").appendChild(newHR)
         }
-    } catch (error) {
-        console.log("wind api error")
     }
 }
 
-async function ParseForecastData(pressElevation, elevationArray, hour) {
-    try {
-        clock = getForecastTime()
-        let forecastdisplay = `Forecast Time: ${clock}`
-        
+function ParseForecastData(pressElevation, elevationArray, hr, forupper) {
+    clock = getForecastTime()
+    let forecastdisplay = `Forecast Time: ${clock}`
+    
+    document.getElementById("forecastHeader").innerText = forecastdisplay
+    document.getElementById("forecastUpperWinds").innerHTML = '';
+
+    let forecastSpeed = []
+    let forecastDir = []
+    let forecastTemp = []
 
 
-        document.getElementById("forecastUpperWinds").innerHTML = ""
-        document.getElementById("forecastHeader").innerText = forecastdisplay
-        let upperData = await uppersData()
-        let forecastSpeed = []
-        let forecastDir = []
-        let forecastTemp = []
+    for (e of pressElevation) {
+        const speedConcact1 = "wind_speed_" + e
+        const dirConcact1 = "wind_direction_" + e
+        const tempConcact1 = "temperature_" + e
 
+        let forSpeed = Math.round(forupper.hourly[speedConcact1][hr])
+        let forDir = Math.round(forupper.hourly[dirConcact1][hour])
+        let forTemp = Math.round(forupper.hourly[tempConcact1][hour])
 
-        for (e of pressElevation) {
-            const speedConcact1 = "wind_speed_" + e
-            const dirConcact1 = "wind_direction_" + e
-            const tempConcact1 = "temperature_" + e
+        forecastSpeed.push(forSpeed)
+        forecastDir.push(forDir)
+        forecastTemp.push(forTemp)
+    }
+    
 
-            let forSpeed = Math.round(upperData.hourly[speedConcact1][hour])
-            let forDir = Math.round(upperData.hourly[dirConcact1][hour])
-            let forTemp = Math.round(upperData.hourly[tempConcact1][hour])
+    for (i = 0; i < pressElevation.length; i++) {
+        forNewDiv = document.createElement('div')
+        forNewDiv.classList.add('line-container')
+        forNewDiv.id = 'forupperLine' + i
+        document.getElementById("forecastUpperWinds").appendChild(forNewDiv)
 
-            forecastSpeed.push(forSpeed)
-            forecastDir.push(forDir)
-            forecastTemp.push(forTemp)
+        forNewPar = document.createElement('p')
+        forNewPar.innerText = `${elevationArray[i]} ${forecastDir[i]}° at ${forecastSpeed[i]} mph`
+        document.getElementById("forupperLine" + i).appendChild(forNewPar)
+
+        forNewPar2 = document.createElement('p')
+        forNewPar2.innerText = `${forecastTemp[i]}°F`
+        document.getElementById("forupperLine" + i).appendChild(forNewPar2)
+
+        if (i < pressElevation.length - 1) {
+        forNewHR = document.createElement('hr')
+        forNewHR.classList.add('col-12')
+        forNewHR.classList.add('hr2')
+        document.getElementById("forecastUpperWinds").appendChild(forNewHR)
         }
-        
-
-        for (i = 0; i < pressElevation.length; i++) {
-            forNewDiv = document.createElement('div')
-            forNewDiv.classList.add('line-container')
-            forNewDiv.id = 'forupperLine' + i
-            document.getElementById("forecastUpperWinds").appendChild(forNewDiv)
-
-            forNewPar = document.createElement('p')
-            forNewPar.innerText = `${elevationArray[i]} ${forecastDir[i]}° at ${forecastSpeed[i]} mph`
-            document.getElementById("forupperLine" + i).appendChild(forNewPar)
-
-            forNewPar2 = document.createElement('p')
-            forNewPar2.innerText = `${forecastTemp[i]}°F`
-            document.getElementById("forupperLine" + i).appendChild(forNewPar2)
-
-            if (i < pressElevation.length - 1) {
-            forNewHR = document.createElement('hr')
-            forNewHR.classList.add('col-12')
-            forNewHR.classList.add('hr2')
-            document.getElementById("forecastUpperWinds").appendChild(forNewHR)
-            }
-        }
-    } catch (error) {
-        console.log(error)
-        console.log("forecast api error")
     }
 }
 
@@ -296,20 +291,18 @@ function getForecastTime() {
 function prevHour(event) {
     if (hour > 1) {
         hour = hour - 1
-        ParseForecastData(pressE, elevationA, hour)
+        ParseForecastData(pressE, elevationA, hour, upperDataVar)
     }
 }
 
 function nextHour(event) {
     if (hour < 23)
     hour = hour + 1
-    ParseForecastData(pressE, elevationA, hour)
+    ParseForecastData(pressE, elevationA, hour, upperDataVar)
 }
 
 generalData()
 uppersData()
-parseCurrentData(pressE, elevationA)
-ParseForecastData(pressE, elevationA, hour)
 getTime()
 
 
