@@ -14,6 +14,10 @@ h1{
     font-weight: 700;
 }
 
+.ForC {
+    margin: 0px 0px 5px 15px;
+}
+
 .current-weather-container {
     background-color: #5bbcfd;
     border: solid 1px white;
@@ -31,6 +35,7 @@ h1{
 
 .container-body {
     display: flex;
+    margin-top: 8px;
 }
 
 .temp-cloud-container {
@@ -45,6 +50,7 @@ h1{
 
 .skyCond {
     width: 75px;
+    min-width: 75px;
     margin-right: 10px;
     margin-left: 10px;
 }
@@ -72,6 +78,7 @@ h1{
     border: solid 1px white;
     color: white;
     margin: 15px;
+    min-height: 670px;
 }
 
 .upper-winds-header {
@@ -84,7 +91,11 @@ h1{
 .line-container {
     display: flex;
     justify-content: space-between;
-    padding: 0px 10px 0px 10px
+    padding: 0px 10px 0px 10px;
+}
+
+.line-item {
+    margin: 8px 0px 8px 0px;
 }
 
 .forecast-upper-winds-container {
@@ -92,6 +103,7 @@ h1{
     border: solid 1px white;
     color: white;
     margin: 15px;
+    min-height: 685px;
 }
 
 .forecast-upper-winds-header {
@@ -105,10 +117,11 @@ h1{
     border: none;
     height: 3px;
     background-color: white;
+    margin-bottom: 0px;
 }
 
 .hr2 {
-    margin-top: -5px;
+    margin: 0px 0px 0px 0px;
     height: 2px;
     background-color: white;
     

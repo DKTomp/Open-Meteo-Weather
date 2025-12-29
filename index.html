@@ -11,6 +11,10 @@
     <body>
         <h1 class="page-title">Skydive Spaceland Dallas Weather</h1>
 
+        <div>
+            <button type="button" class="btn btn-light ForC" id="ForC">°C</button>
+        </div>
+
         <div class="col col-12 col-sm-8 col-md-6 col-lg-5 rounded-2 current-weather-container">
             <div class="container-header">
                 <div>Current Weather</div>
@@ -24,29 +28,29 @@
                     </div>
                     <div class="col col-sm-12 col-md-12 col-lg-12 temps-container">
                         <div class="cur-temp-container">
-                            <p class="temp" id="cur-temp"></p>
+                            <p class="temp" id="cur-temp">--°</p>
                         </div>
                         <div class="">
-                            <p class="feeltemp" id="feels-temp"></p>
+                            <p class="feeltemp" id="feels-temp">--°</p>
                         </div>
                     </div>
                 </div>
                 <div class="col col-sm-6 col-md-6 col-lg-8 wind-container">
                     <div class="col col-12 col-md-12 col-lg-8 wind">
                         <p>Wind</p>
-                        <p class="bold-text" id="sur-wind"></p>
+                        <p class="bold-text" id="sur-wind">-- mph</p>
                     </div>
                     <div class="col col-12 col-md-12 col-lg-8 wind">
                         <p>Wind Gusts</p>
-                        <p class="bold-text" id="wind-gust"></p>
+                        <p class="bold-text" id="wind-gust">-- mph</p>
                     </div>
                     <div class="col col-12 col-md-12 col-lg-8 wind">
                         <p>Cloud Coverage</p>
-                        <p class="bold-text" id="cloud-cvr"></p>
+                        <p class="bold-text" id="cloud-cvr">--%</p>
                     </div>
                     <div class="col col-12 col-md-12 col-lg-8 wind">
                         <p>Humidity</p>
-                        <p class="bold-text" id="humidity"></p>
+                        <p class="bold-text" id="humidity">--%</p>
                     </div>
                 </div>
             </div>
@@ -60,9 +64,9 @@
 
         <div class="col col-12 col-sm-8 col-md-6 col-lg-5 forecast-upper-winds-container rounded-2">
             <div class=" col col-12 forecast-upper-winds-header">
-                <button type="button" class="btn btn-light" id="prevHour">-1 Hour</button>
+                <button type="button" class="btn btn-light" id="prevHour">« -1 Hour</button>
                 <p id="forecastHeader">Forecast Winds Aloft</p>
-                <button type="button" class="btn btn-light" id="nextHour">+1 Hour</button>
+                <button type="button" class="btn btn-light" id="nextHour">+1 Hour »</button>
             </div>
             <hr class="col col-12 hr1">
             <div class="forecast-upper-wind-body" id="forecastUpperWinds"></div>
