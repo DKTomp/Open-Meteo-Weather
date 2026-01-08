@@ -70,9 +70,8 @@ function newLocation() {
 
 async function generalData() {
     try {
-        let weatherResponse = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=${dzLocation[determineLoc].lat}&longitude=${dzLocation[determineLoc].lon}&current=temperature_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,cloud_cover,apparent_temperature,relative_humidity_2m,surface_pressure,&current=is_day&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`)
+        let weatherResponse = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=${dzLocation[determineLoc].lat}&longitude=${dzLocation[determineLoc].lon}&current=temperature_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,cloud_cover,apparent_temperature,relative_humidity_2m,pressure_msl,&current=is_day&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`)
         weatherData = await weatherResponse.json()
-        console.log(weatherData)
         currentSurfaceWeather()
         
         } catch (error) {
@@ -118,12 +117,9 @@ function currentSurfaceWeather() {
 }
 
 function calcDensityAltitude() {
-    let inches = weatherData.current.surface_pressure / 33.864
+    let inches = weatherData.current.pressure_msl * 0.02953
     let pressureAltitude = ((29.92 - inches) * 1000) + dzLocation[determineLoc].elevation
-    let densityAltitude = Math.round(pressureAltitude + (120 * (((weatherData.current.temperature_2m - 32) * (5 / 9)) - dzLocation[determineLoc].standTemp)))
-    console.log(inches)
-    console.log(pressureAltitude)
-    console.log(densityAltitude)
+    let densityAltitude = Math.round(pressureAltitude + (118.8 * (((weatherData.current.temperature_2m - 32) * (5 / 9)) - dzLocation[determineLoc].standTemp)))
     return densityAltitude
 }
 
