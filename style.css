@@ -28,6 +28,13 @@ img[src=""] {
     width: 230px;
 }
 
+.loc-list {
+    display: flex;
+    flex-direction: column;
+    justify-self: flex-start;
+    padding-left: 5px;
+}
+
 .temp-button {
     margin: 0px 15px 0px 5px;
     width: 40px;
@@ -35,7 +42,12 @@ img[src=""] {
 }
 
 .wind-button {
-    margin: 15px 1px 0px 5px;
+    margin: 10px 1px 0px 5px;
+    background-color: white;
+}
+
+.loc-button {
+    margin: 10px 0px 0px 0px;
     background-color: white;
 }
 
@@ -64,6 +76,11 @@ img[src=""] {
     margin-top: 8px;
 }
 
+.temp-press {
+    display: flex;
+    flex-direction: column;
+}
+
 .temp-cloud-container {
     display: flex;
 }
@@ -80,6 +97,16 @@ img[src=""] {
 }
 
 .feeltemp-p {
+    margin-right: 5px;
+}
+
+.density-alt {
+    display: flex;
+    margin-left: 20px;
+    width: 200px
+}
+
+.density {
     margin-right: 5px;
 }
 
@@ -198,6 +225,5 @@ img[src=""] {
     border: solid 1px white;
     color: white;
     margin: 20px 0px 0px 0px;
-    }
-    
+    }  
 }

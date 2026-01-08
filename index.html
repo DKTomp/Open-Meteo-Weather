@@ -33,6 +33,13 @@
                                         <button type="button" class="btn wind-button" id="kph">Km/h</button>
                                         <button type="button" class="btn wind-button" id="kts">Knots</button>
                                     </li>
+                                    <li>
+                                        <div class="loc-list">
+                                            <button type="button" class="btn loc-button" id="dallas" value="0" onclick="newLocation(this)">Dallas</button>
+                                            <button type="button" class="btn loc-button" id="san-marcos" value="1" onclick="newLocation(this)">San Marcos</button>
+                                            <button type="button" class="btn loc-button" id="houston" value="2" onclick="newLocation(this)">Houston</button>
+                                        </div>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -41,7 +48,7 @@
             </nav>
         </header>
 
-        <h1 class="page-title">Skydive Spaceland Dallas Weather</h1>
+        <h1 class="page-title" id="locTitle">Dallas Weather</h1>
 
         <div class="col col-12 col-sm-8 col-md-7 col-lg-5 rounded-2 current-weather-container">
             <div class="container-header">
@@ -50,18 +57,24 @@
             </div>
             <hr class="col col-12 hr1">
             <div class="container-body">
-                <div class="col col-sm-6 col-md-6 col-lg-4 temp-cloud-container">
-                    <div>
-                        <img class="skyCond" src="" alt="skycond" id="sky-cond">
+                <div class="col col-sm-6 col-md-6 col-lg-4 temp-press">
+                    <div class="col col-sm-8 col-md-6 col-lg-12 temp-cloud-container">
+                        <div>
+                            <img class="skyCond" src="" alt="skycond" id="sky-cond">
+                        </div>
+                        <div class="col col-sm-12 col-md-12 col-lg-12 temps-container">
+                            <div class="cur-temp-container">
+                                <p class="temp" id="cur-temp">--°</p>
+                            </div>
+                            <div class="col col-sm-12 col-md-12 col-lg-12 feeltemp">
+                                <p class="feeltemp-p">Feels Like:</p>
+                                <p id="feels-temp">--°</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col col-sm-12 col-md-12 col-lg-12 temps-container">
-                        <div class="cur-temp-container">
-                            <p class="temp" id="cur-temp">--°</p>
-                        </div>
-                        <div class="feeltemp">
-                            <p class="feeltemp-p">Feels Like:</p>
-                            <p id="feels-temp">--°</p>
-                        </div>
+                    <div class="density-alt">
+                        <p class="density">Density Altitude:</p>
+                        <p id="densityAlt">---- ft</p>
                     </div>
                 </div>
                 <div class="col col-sm-6 col-md-6 col-lg-8 wind-container">

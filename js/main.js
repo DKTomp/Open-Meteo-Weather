@@ -16,7 +16,14 @@ const pressE = [
     "550hPa"
 ]
 
+const dzLocation = [
+    {loc: "dallas", lat: "33.45", lon: "-96.38", elevation: 770, standTemp: 13.46},
+    {loc: "san marcos", lat: "29.77", lon: "-97.77", elevation: 450, standTemp: 14.1},
+    {loc: "houston", lat: "29.36", lon: "-95.46", elevation: 50, standTemp: 14.9}
+]
+
 let hour = 1
+let determineLoc = 0
 let upperDataVar;
 let weatherData;
 let upperSpeed;
@@ -39,14 +46,49 @@ kphButton.addEventListener('click', calculateKPH)
 mphButton.addEventListener('click', calcuateMPH)
 ktsButton.addEventListener('click', calculateKTS)
 
+document.querySelectorAll(".loc-button").forEach(button => {
+        button.addEventListener("click", function(event) {
+        determineLoc = event.target.value
+
+        if (event.target.value === "0") {
+            document.getElementById('locTitle').innerText = "Dallas Weather"
+        } else if (event.target.value === "1") {
+            document.getElementById('locTitle').innerText = "San Marcos Weather"
+        } else if (event.target.value === "2") {
+            document.getElementById('locTitle').innerText = "Houston Weather"
+        }
+        newLocation()
+        });
+    });
+
+
+function newLocation() {
+    generalData()
+    uppersData()
+    getTime()
+}
+
 async function generalData() {
     try {
-        let weatherResponse = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=33.45&longitude=-96.38&current=temperature_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,cloud_cover,apparent_temperature,relative_humidity_2m,&current=is_day&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`)
+        let weatherResponse = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=${dzLocation[determineLoc].lat}&longitude=${dzLocation[determineLoc].lon}&current=temperature_2m,wind_speed_10m,wind_direction_10m,wind_gusts_10m,cloud_cover,apparent_temperature,relative_humidity_2m,surface_pressure,&current=is_day&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`)
         weatherData = await weatherResponse.json()
+        console.log(weatherData)
         currentSurfaceWeather()
         
         } catch (error) {
         console.log(error)
+    }
+}
+
+async function uppersData() {
+    try {
+        let upperResponse = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=${dzLocation[determineLoc].lat}&longitude=${dzLocation[determineLoc].lon}&hourly=temperature_2m,temperature_950hPa,temperature_925hPa,temperature_875hPa,temperature_850hPa,temperature_825hPa,temperature_775hPa,temperature_750hPa,temperature_725hPa,temperature_700hPa,temperature_675hPa,temperature_650hPa,temperature_625hPa,temperature_600hPa,temperature_575hPa,temperature_550hPa,wind_speed_950hPa,wind_speed_925hPa,wind_speed_875hPa,wind_speed_850hPa,wind_speed_825hPa,wind_speed_775hPa,wind_speed_750hPa,wind_speed_725hPa,wind_speed_700hPa,wind_speed_675hPa,wind_speed_650hPa,wind_speed_625hPa,wind_speed_600hPa,wind_speed_575hPa,wind_speed_550hPa,wind_direction_950hPa,wind_direction_925hPa,wind_direction_875hPa,wind_direction_850hPa,wind_direction_825hPa,wind_direction_775hPa,wind_direction_750hPa,wind_direction_725hPa,wind_direction_700hPa,wind_direction_675hPa,wind_direction_650hPa,wind_direction_625hPa,wind_direction_600hPa,wind_direction_575hPa,wind_direction_550hPa&models=gfs_seamless&forecast_days=1&wind_speed_unit=mph&temperature_unit=fahrenheit`)
+        upperDataVar = await upperResponse.json()
+        parseCurrentData(pressE)
+        ParseForecastData(pressE)
+        
+        } catch (error) {
+            console.log(error)
     }
 }
 
@@ -69,8 +111,20 @@ function currentSurfaceWeather() {
     document.getElementById("cloud-cvr").innerText = `${cloudCvr}%`
     let humidity = Math.round(weatherData.current.relative_humidity_2m)
     document.getElementById("humidity").innerText = `${humidity}%`
+    let densityAlt = calcDensityAltitude()
+    document.getElementById('densityAlt').innerText = `${densityAlt} ft`
 
-    svgIcon(cloudCvr, isDay)   
+    svgIcon(cloudCvr, isDay)
+}
+
+function calcDensityAltitude() {
+    let inches = weatherData.current.surface_pressure / 33.864
+    let pressureAltitude = ((29.92 - inches) * 1000) + dzLocation[determineLoc].elevation
+    let densityAltitude = Math.round(pressureAltitude + (120 * (((weatherData.current.temperature_2m - 32) * (5 / 9)) - dzLocation[determineLoc].standTemp)))
+    console.log(inches)
+    console.log(pressureAltitude)
+    console.log(densityAltitude)
+    return densityAltitude
 }
 
 function calculateC() {
@@ -78,12 +132,11 @@ function calculateC() {
         celButton.classList.toggle('selected')
         farButton.classList.toggle('selected')
 
-        let curTemp = weatherData.current.temperature_2m
-        curTemp = Math.round((curTemp - 32) * (5 / 9))
+        let curTemp = Math.round((weatherData.current.temperature_2m - 32) * (5 / 9))
         document.getElementById("cur-temp").innerText = `${curTemp}°C`
 
-        let feelTemp = weatherData.current.apparent_temperature
-        feelTemp = Math.round((feelTemp - 32) * (5 / 9))
+        
+        let feelTemp = Math.round((weatherData.current.apparent_temperature - 32) * (5 / 9))
         document.getElementById("feels-temp").innerText = `${feelTemp}°C`
 
         for (let i = 0; i < upperTemp.length; i++) {
@@ -123,12 +176,10 @@ function calculateKPH() {
             ktsButton.classList.toggle('selected')
         }
         
-        let surWind = weatherData.current.wind_speed_10m
         let windDir = determineWindDir(weatherData.current.wind_direction_10m)
-        surWind = Math.round(surWind * 1.609)
+        let surWind = Math.round(weatherData.current.wind_speed_10m * 1.609)
         document.getElementById("sur-wind").innerText = `${windDir} ${surWind} km/h`
-        let windGust = weatherData.current.wind_gusts_10m
-        windGust = Math.round(windGust * 1.609)
+        let windGust = Math.round(weatherData.current.wind_gusts_10m * 1.609)
         document.getElementById("wind-gust").innerText = `${windGust} km/h`
         
         for ( let i = 0; i <  15; i++) {
@@ -174,12 +225,10 @@ function calculateKTS() {
         }
     }
 
-    let surWind = weatherData.current.wind_speed_10m
     let windDir = determineWindDir(weatherData.current.wind_direction_10m)
-    surWind = Math.round(surWind * 1.151)
+    let surWind = Math.round(weatherData.current.wind_speed_10m * 1.151)
     document.getElementById("sur-wind").innerText = `${windDir} ${surWind} kts`
-    let windGust = weatherData.current.wind_gusts_10m
-    windGust = Math.round(windGust * 1.151)
+    let windGust = Math.round(weatherData.current.wind_gusts_10m * 1.151)
     document.getElementById("wind-gust").innerText = `${windGust} kts`
 
     for (let i = 0; i <  15; i++) {
@@ -252,18 +301,6 @@ function determineWindDir(dir) {
         } else {
             continue
         }
-    }
-}
-
-async function uppersData() {
-    try {
-        let upperResponse = await fetch (`https://api.open-meteo.com/v1/forecast?latitude=33.45&longitude=-96.38&hourly=temperature_2m,temperature_950hPa,temperature_925hPa,temperature_875hPa,temperature_850hPa,temperature_825hPa,temperature_775hPa,temperature_750hPa,temperature_725hPa,temperature_700hPa,temperature_675hPa,temperature_650hPa,temperature_625hPa,temperature_600hPa,temperature_575hPa,temperature_550hPa,wind_speed_950hPa,wind_speed_925hPa,wind_speed_875hPa,wind_speed_850hPa,wind_speed_825hPa,wind_speed_775hPa,wind_speed_750hPa,wind_speed_725hPa,wind_speed_700hPa,wind_speed_675hPa,wind_speed_650hPa,wind_speed_625hPa,wind_speed_600hPa,wind_speed_575hPa,wind_speed_550hPa,wind_direction_950hPa,wind_direction_925hPa,wind_direction_875hPa,wind_direction_850hPa,wind_direction_825hPa,wind_direction_775hPa,wind_direction_750hPa,wind_direction_725hPa,wind_direction_700hPa,wind_direction_675hPa,wind_direction_650hPa,wind_direction_625hPa,wind_direction_600hPa,wind_direction_575hPa,wind_direction_550hPa&models=gfs_seamless&forecast_days=1&wind_speed_unit=mph&temperature_unit=fahrenheit`)
-        upperDataVar = await upperResponse.json()
-        parseCurrentData(pressE)
-        ParseForecastData(pressE)
-        
-        } catch (error) {
-            console.log(error)
     }
 }
 
