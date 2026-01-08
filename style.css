@@ -116,8 +116,13 @@ body {
     padding: 0px 10px 0px 10px;
 }
 
+.data-container {
+    display: flex;
+    flex-direction: row;
+}
+
 .line-item {
-    margin: 8px 0px 8px 0px;
+    margin: 8px 5px 8px 0px;
 }
 
 .forecast-upper-winds-container {
