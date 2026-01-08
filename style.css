@@ -154,7 +154,18 @@ body {
     
 }
 
-@media (max-width: 575.9px) {
+@media (max-width: 645px) {
+    .skyCond {
+    width: 50px;
+    min-width: 50px;
+    margin-right: 10px;
+    margin-left: 10px;
+    }
+
+    .cur-temp-container {
+        font-size: 45px;
+        margin-bottom: -30px;
+    }
     .current-weather-container {
     background-color: #5bbcfd;
     border: solid 1px white;
