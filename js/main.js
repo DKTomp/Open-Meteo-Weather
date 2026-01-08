@@ -35,14 +35,21 @@ const elevationA = [
 ]
 
 let hour = 1
-ForC = 0
 
 const prevButton = document.getElementById("prevHour")
 const nextButton = document.getElementById("nextHour")
-const ForCButton = document.getElementById('ForC')
+const celButton = document.getElementById('cel')
+const farButton = document.getElementById('far')
+const kphButton = document.getElementById('kph')
+const mphButton = document.getElementById('mph')
+const ktsButton = document.getElementById('kts')
 prevButton.addEventListener("click", prevHour)
 nextButton.addEventListener("click", nextHour)
-ForCButton.addEventListener("click", determineForC)
+celButton.addEventListener("click", calculateC)
+farButton.addEventListener('click', CalculateF)
+kphButton.addEventListener('click', calculateKPH)
+mphButton.addEventListener('click', calcuateMPH)
+ktsButton.addEventListener('click', calculateKTS)
 
 async function generalData() {
     try {
@@ -79,17 +86,18 @@ function currentSurfaceWeather() {
         svgIcon(cloudCvr, isDay)   
 }
 
-function determineForC() {
-    if (ForC === 0) {
-        ForC = 1
-        ForCButton.innerText = "°F"
-        let curTemp = Math.round(weatherData.current.temperature_2m)
+function calculateC() {
+    if (!celButton.classList.contains('selected')) {
+        celButton.classList.toggle('selected')
+        farButton.classList.toggle('selected')
+
+        let curTemp = weatherData.current.temperature_2m
         curTemp = Math.round((curTemp - 32) * (5 / 9))
         document.getElementById("cur-temp").innerText = `${curTemp}°C`
 
-        let feelTemp = Math.round(weatherData.current.apparent_temperature)
+        let feelTemp = weatherData.current.apparent_temperature
         feelTemp = Math.round((feelTemp - 32) * (5 / 9))
-        document.getElementById("feels-temp").innerText = `${feelTemp}°C`
+        document.getElementById("feels-temp").innerText = `Feels Like: ${feelTemp}°C`
 
         for (i = 0; i < upperTemp.length; i++) {
             let upperTempC = Math.round((upperTemp[i] - 32) * (5 / 9))
@@ -97,21 +105,84 @@ function determineForC() {
             document.getElementById('upper-temp' + i).innerText = `${upperTempC}°C`
             document.getElementById('for-upper-temp' + i).innerText = `${forUpperTempC}°C`
         }
-        
-    } else if  (ForC === 1) {
-        ForC = 0
-        ForCButton.innerText = "°C"
+    }
+}
+
+function CalculateF() {
+    if (!farButton.classList.contains('selected')) {
+        celButton.classList.toggle('selected')
+        farButton.classList.toggle('selected')
+
         let curTemp = Math.round(weatherData.current.temperature_2m)
         document.getElementById("cur-temp").innerText = `${curTemp}°F`
 
         let feelTemp = Math.round(weatherData.current.apparent_temperature)
-        document.getElementById("feels-temp").innerText = `${feelTemp}°C`
+        document.getElementById("feels-temp").innerText = `Feels Like: ${feelTemp}°C`
 
         for (i = 0; i < upperTemp.length; i++) {
             document.getElementById('upper-temp' + i).innerText = `${upperTemp[i]}°F`
             document.getElementById('for-upper-temp' + i).innerText = `${forecastTemp[i]}°F`
         }
     }
+}
+
+function calculateKPH() {
+    if (!kphButton.classList.contains('selected')) {
+        kphButton.classList.toggle('selected')
+        if (mphButton.classList.contains('selected')) {
+            mphButton.classList.toggle('selected')
+        }
+        if (ktsButton.classList.contains('selected')) {
+            ktsButton.classList.toggle('selected')
+        }
+        
+
+        let surWind = weatherData.current.wind_speed_10m
+        let windDir = determineWindDir(weatherData.current.wind_direction_10m)
+        surWind = Math.round(surWind * 1.609)
+        document.getElementById("sur-wind").innerText = `${windDir} ${surWind} km/h`
+        let windGust = weatherData.current.wind_gusts_10m
+        windGust = Math.round(windGust * 1.609)
+        document.getElementById("wind-gust").innerText = `${windGust} km/h`
+    }
+}
+
+function calcuateMPH() {
+    if (!mphButton.classList.contains('selected')) {
+        mphButton.classList.toggle('selected')
+        if (kphButton.classList.contains('selected')) {
+            kphButton.classList.toggle('selected')
+        }
+        if (ktsButton.classList.contains('selected')) {
+            ktsButton.classList.toggle('selected')
+        }
+    }
+
+    let surWind = Math.round(weatherData.current.wind_speed_10m)
+    let windDir = determineWindDir(weatherData.current.wind_direction_10m)
+    document.getElementById("sur-wind").innerText = `${windDir} ${surWind} mph`
+    let windGust = Math.round(weatherData.current.wind_gusts_10m)
+    document.getElementById("wind-gust").innerText = `${windGust} mph`
+}
+
+function calculateKTS() {
+    if (!ktsButton.classList.contains('selected')) {
+        ktsButton.classList.toggle('selected')
+        if (kphButton.classList.contains('selected')) {
+            kphButton.classList.toggle('selected')
+        }
+        if (mphButton.classList.contains('selected')) {
+            mphButton.classList.toggle('selected')
+        }
+    }
+
+    let surWind = weatherData.current.wind_speed_10m
+        let windDir = determineWindDir(weatherData.current.wind_direction_10m)
+        surWind = Math.round(surWind * 1.151)
+        document.getElementById("sur-wind").innerText = `${windDir} ${surWind} kts`
+        let windGust = weatherData.current.wind_gusts_10m
+        windGust = Math.round(windGust * 1.151)
+        document.getElementById("wind-gust").innerText = `${windGust} kts`
 }
 
 function svgIcon(cvr, day) {
@@ -141,7 +212,7 @@ function svgIcon(cvr, day) {
 }
 
 function determineWindDir(dir) {
-    cardDir = ""
+    let cardDir = ""
 
     const directions = [
         {min: 348.5, max: 10.5, val: "N"},
@@ -196,7 +267,7 @@ async function uppersData() {
 function parseCurrentData(pressElevation, elevationArray) {
     
     //console.log(uppers)
-    let upperSpeed = []
+    globalThis.upperSpeed = []
     let upperDir = []
     globalThis.upperTemp = []
 
@@ -240,7 +311,7 @@ function parseCurrentData(pressElevation, elevationArray) {
     }
 }
 
-function ParseForecastData(pressElevation, elevationArray, hr) {
+function ParseForecastData(pressElevation, elevationArray) {
     clock = getForecastTime()
     let forecastdisplay = `Forecast Time: ${clock}`
     
@@ -257,7 +328,7 @@ function ParseForecastData(pressElevation, elevationArray, hr) {
         const dirConcact1 = "wind_direction_" + e
         const tempConcact1 = "temperature_" + e
 
-        let forSpeed = Math.round(upperDataVar.hourly[speedConcact1][hr])
+        let forSpeed = Math.round(upperDataVar.hourly[speedConcact1][hour])
         let forDir = Math.round(upperDataVar.hourly[dirConcact1][hour])
         let forTemp = Math.round(upperDataVar.hourly[tempConcact1][hour])
 
@@ -311,38 +382,42 @@ function getForecastTime() {
     let hours = now.getHours()
     let forecastHour = hours + hour
     let ampm = "AM"
-    if (forecastHour > 36) {
+    if (forecastHour >= 36) {
         ampm = "PM"
-        forecastHour = forecastHour - 36
-    } else if (forecastHour === 36) {
-        ampm = "PM"
-        forecastHour = forecastHour - 24
-    } else if (forecastHour > 24) {
+        if (forecastHour === 36) {
+            forecastHour -= 24
+        } else {
+            forecastHour -= 36
+        }
+    }  else if (forecastHour >= 24) {
         ampm = "AM"
-        forecastHour = forecastHour - 24
-    } else if (forecastHour === 24) {
-        ampm = "AM"
-        forecastHour = forecastHour - 12
+        if (forecastHour === 24) {
+            forecastHour -= 12
+        } else {
+            forecastHour -= 24
+        }
     } else if (forecastHour >= 12) {
         ampm = "PM"
-        forecastHour = forecastHour - 12
+        if (forecastHour > 12) {
+            forecastHour -= 12
+        }
     }
 
     let display = `${forecastHour}:00 ${ampm}`
     return display
 }
 
-function prevHour(event) {
+function prevHour() {
     if (hour > 1) {
-        hour = hour - 1
-        ParseForecastData(pressE, elevationA, hour, upperDataVar)
+        hour -= 1
+        ParseForecastData(pressE, elevationA)
     }
 }
 
-function nextHour(event) {
+function nextHour() {
     if (hour < 23)
-    hour = hour + 1
-    ParseForecastData(pressE, elevationA, hour, upperDataVar)
+    hour += 1
+    ParseForecastData(pressE, elevationA)
 }
 
 generalData()

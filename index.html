@@ -8,12 +8,40 @@
         <link rel="stylesheet" href="./style.css">
         <script src="./js/main.js" defer></script>
     </head>
+
+    <header>
+        <nav class="navbar navbar-expand-sm bg-body-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">DT Weather</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Settings
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <button type="button" class="btn temp-button selected" id="far">°F</button>
+                        <button type="button" class="btn temp-button" id="cel">°C</button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn wind-button selected" id="mph">MPH</button>
+                        <button type="button" class="btn wind-button" id="kph">Km/h</button>
+                        <button type="button" class="btn wind-button" id="kts">Knots</button>
+                    </li>
+                </ul>
+                </li>
+            </ul>
+            </div>
+        </div>
+        </nav>
+    </header>
+
     <body>
         <h1 class="page-title">Skydive Spaceland Dallas Weather</h1>
-
-        <div>
-            <button type="button" class="btn btn-light ForC" id="ForC">°C</button>
-        </div>
 
         <div class="col col-12 col-sm-8 col-md-6 col-lg-5 rounded-2 current-weather-container">
             <div class="container-header">

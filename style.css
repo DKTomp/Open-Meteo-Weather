@@ -2,20 +2,42 @@ body {
     background-color: #111111;
 }
 
-h1{
-    color: white;
+.navbar {
+    background-color: #5bbcfd;
+}
+
+.dropdown-menu {
+    background-color: #111111;
 }
 
 .page-title {
+    color: white;
     margin-left: 20px;
+    font-size: 25px;
 }
 
 .bold-text {
     font-weight: 700;
 }
 
-.ForC {
-    margin: 0px 0px 5px 15px;
+.dropdown-menu {
+    width: 230px;
+}
+
+.temp-button {
+    margin: 0px 15px 0px 5px;
+    width: 40px;
+    background-color:white;
+}
+
+.wind-button {
+    margin: 15px 1px 0px 5px;
+    background-color: white;
+}
+
+.selected {
+    background-color:#5bbcfd;
+    color: black;
 }
 
 .current-weather-container {
