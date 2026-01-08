@@ -59,7 +59,7 @@ function currentSurfaceWeather() {
     let curTemp = Math.round(weatherData.current.temperature_2m)
     document.getElementById("cur-temp").innerText = `${curTemp}°F`
     let feelTemp = Math.round(weatherData.current.apparent_temperature)
-    document.getElementById("feels-temp").innerText = `Feels Like: ${feelTemp}°F`
+    document.getElementById("feels-temp").innerText = `${feelTemp}°F`
     let surWind = Math.round(weatherData.current.wind_speed_10m)
     let windDir = determineWindDir(weatherData.current.wind_direction_10m)
     document.getElementById("sur-wind").innerText = `${windDir} ${surWind} mph`
@@ -84,7 +84,7 @@ function calculateC() {
 
         let feelTemp = weatherData.current.apparent_temperature
         feelTemp = Math.round((feelTemp - 32) * (5 / 9))
-        document.getElementById("feels-temp").innerText = `Feels Like: ${feelTemp}°C`
+        document.getElementById("feels-temp").innerText = `${feelTemp}°C`
 
         for (let i = 0; i < upperTemp.length; i++) {
             let upperTempC = Math.round((upperTemp[i] - 32) * (5 / 9))
@@ -104,7 +104,7 @@ function CalculateF() {
         document.getElementById("cur-temp").innerText = `${curTemp}°F`
 
         let feelTemp = Math.round(weatherData.current.apparent_temperature)
-        document.getElementById("feels-temp").innerText = `Feels Like: ${feelTemp}°C`
+        document.getElementById("feels-temp").innerText = `${feelTemp}°C`
 
         for (let i = 0; i < upperTemp.length; i++) {
             document.getElementById('temp' + i).innerText = `${upperTemp[i]}°F`

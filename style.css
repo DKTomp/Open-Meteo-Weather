@@ -2,6 +2,10 @@ body {
     background-color: #111111;
 }
 
+img[src=""] {
+    display: none;
+}
+
 .navbar {
     background-color: #5bbcfd;
 }
@@ -68,6 +72,15 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: -20px;
+}
+
+.feeltemp {
+    display: flex;
+    flex-direction: row;
+}
+
+.feeltemp-p {
+    margin-right: 5px;
 }
 
 .skyCond {

@@ -11,7 +11,7 @@
 
     <body>
         <header>
-            <nav class="navbar navbar-expand-sm bg-body-primary">
+            <nav class="navbar navbar-expand bg-body-primary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">DT Weather</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,14 +52,15 @@
             <div class="container-body">
                 <div class="col col-sm-6 col-md-6 col-lg-4 temp-cloud-container">
                     <div>
-                        <img class="skyCond" src="null" alt="skycond" id="sky-cond">
+                        <img class="skyCond" src="" alt="skycond" id="sky-cond">
                     </div>
                     <div class="col col-sm-12 col-md-12 col-lg-12 temps-container">
                         <div class="cur-temp-container">
                             <p class="temp" id="cur-temp">--°</p>
                         </div>
-                        <div class="">
-                            <p class="feeltemp" id="feels-temp">--°</p>
+                        <div class="feeltemp">
+                            <p class="feeltemp-p">Feels Like:</p>
+                            <p id="feels-temp">--°</p>
                         </div>
                     </div>
                 </div>
@@ -91,11 +92,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">1000 ft: </p>
-                    <p class="line-item" id="dir0"></p>
-                    <p class="line-item" id="speed0"></p>
+                    <p class="line-item" id="dir0">---°</p>
+                    <p class="line-item" id="speed0">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp0"></p>
+                        <p class="line-item" id="temp0">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -103,11 +104,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">2000 ft: </p>
-                    <p class="line-item" id="dir1"></p>
-                    <p class="line-item" id="speed1"></p>
+                    <p class="line-item" id="dir1">---°</p>
+                    <p class="line-item" id="speed1">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp1"></p>
+                        <p class="line-item" id="temp1">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -115,11 +116,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">3000 ft:</p>
-                    <p class="line-item" id="dir2"></p>
-                    <p class="line-item" id="speed2"></p>
+                    <p class="line-item" id="dir2">---°</p>
+                    <p class="line-item" id="speed2">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp2"></p>
+                        <p class="line-item" id="temp2">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -127,11 +128,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">4000 ft:</p>
-                    <p class="line-item" id="dir3"></p>
-                    <p class="line-item" id="speed3"></p>
+                    <p class="line-item" id="dir3">---°</p>
+                    <p class="line-item" id="speed3">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp3"></p>
+                        <p class="line-item" id="temp3">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -139,11 +140,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">5000 ft:</p>
-                    <p class="line-item" id="dir4"></p>
-                    <p class="line-item" id="speed4"></p>
+                    <p class="line-item" id="dir4">---°</p>
+                    <p class="line-item" id="speed4">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp4"></p>
+                        <p class="line-item" id="temp4">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -151,11 +152,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">6000 ft:</p>
-                    <p class="line-item" id="dir5"></p>
-                    <p class="line-item" id="speed5"></p>
+                    <p class="line-item" id="dir5">---°</p>
+                    <p class="line-item" id="speed5">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp5"></p>
+                        <p class="line-item" id="temp5">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -163,11 +164,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">7000 ft:</p>
-                    <p class="line-item" id="dir6"></p>
-                    <p class="line-item" id="speed6"></p>
+                    <p class="line-item" id="dir6">---°</p>
+                    <p class="line-item" id="speed6">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp6"></p>
+                        <p class="line-item" id="temp6">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -175,11 +176,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">8000 ft:</p>
-                    <p class="line-item" id="dir7"></p>
-                    <p class="line-item" id="speed7"></p>
+                    <p class="line-item" id="dir7">---°</p>
+                    <p class="line-item" id="speed7">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp7"></p>
+                        <p class="line-item" id="temp7">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -187,11 +188,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">9000 ft:</p>
-                    <p class="line-item" id="dir8"></p>
-                    <p class="line-item" id="speed8"></p>
+                    <p class="line-item" id="dir8">---°</p>
+                    <p class="line-item" id="speed8">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp8"></p>
+                        <p class="line-item" id="temp8">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -199,11 +200,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">10000 ft:</p>
-                    <p class="line-item" id="dir9"></p>
-                    <p class="line-item" id="speed9"></p>
+                    <p class="line-item" id="dir9">---°</p>
+                    <p class="line-item" id="speed9">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp9"></p>
+                        <p class="line-item" id="temp9">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -211,11 +212,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">11000 ft:</p>
-                    <p class="line-item" id="dir10"></p>
-                    <p class="line-item" id="speed10"></p>
+                    <p class="line-item" id="dir10">---°</p>
+                    <p class="line-item" id="speed10">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp10"></p>
+                        <p class="line-item" id="temp10">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -223,11 +224,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">12000 ft:</p>
-                    <p class="line-item" id="dir11"></p>
-                    <p class="line-item" id="speed11"></p>
+                    <p class="line-item" id="dir11">---°</p>
+                    <p class="line-item" id="speed11">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp11"></p>
+                        <p class="line-item" id="temp11">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -235,11 +236,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">13000 ft:</p>
-                    <p class="line-item" id="dir12"></p>
-                    <p class="line-item" id="speed12"></p>
+                    <p class="line-item" id="dir12">---°</p>
+                    <p class="line-item" id="speed12">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp12"></p>
+                        <p class="line-item" id="temp12">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -247,11 +248,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">14000 ft:</p>
-                    <p class="line-item" id="dir13"></p>
-                    <p class="line-item" id="speed13"></p>
+                    <p class="line-item" id="dir13">---°</p>
+                    <p class="line-item" id="speed13">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp13"></p>
+                        <p class="line-item" id="temp13">--°</p>
                     </div>
                 </div>
                 <hr class="col col-12 hr2">
@@ -259,11 +260,11 @@
                 <div class="line-container">
                     <div class="data-container">
                     <p class="line-item">15000 ft:</p>
-                    <p class="line-item" id="dir14"></p>
-                    <p class="line-item" id="speed14"></p>
+                    <p class="line-item" id="dir14">---°</p>
+                    <p class="line-item" id="speed14">at --- mph</p>
                     </div>
                     <div class="data-container">
-                        <p class="line-item" id="temp14"></p>
+                        <p class="line-item" id="temp14">--°</p>
                     </div>
                 </div>
             </div>
