@@ -9,38 +9,38 @@
         <script src="./js/main.js" defer></script>
     </head>
 
-    <header>
-        <nav class="navbar navbar-expand-sm bg-body-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">DT Weather</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Settings
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <button type="button" class="btn temp-button selected" id="far">°F</button>
-                        <button type="button" class="btn temp-button" id="cel">°C</button>
-                    </li>
-                    <li>
-                        <button type="button" class="btn wind-button selected" id="mph">MPH</button>
-                        <button type="button" class="btn wind-button" id="kph">Km/h</button>
-                        <button type="button" class="btn wind-button" id="kts">Knots</button>
-                    </li>
-                </ul>
-                </li>
-            </ul>
-            </div>
-        </div>
-        </nav>
-    </header>
-
     <body>
+        <header>
+            <nav class="navbar navbar-expand-sm bg-body-primary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">DT Weather</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Settings
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <button type="button" class="btn temp-button selected" id="far">°F</button>
+                                        <button type="button" class="btn temp-button" id="cel">°C</button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn wind-button selected" id="mph">MPH</button>
+                                        <button type="button" class="btn wind-button" id="kph">Km/h</button>
+                                        <button type="button" class="btn wind-button" id="kts">Knots</button>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
         <h1 class="page-title">Skydive Spaceland Dallas Weather</h1>
 
         <div class="col col-12 col-sm-8 col-md-7 col-lg-5 rounded-2 current-weather-container">
@@ -52,7 +52,7 @@
             <div class="container-body">
                 <div class="col col-sm-6 col-md-6 col-lg-4 temp-cloud-container">
                     <div>
-                        <img class="skyCond" src="" alt="" id="sky-cond">
+                        <img class="skyCond" src="null" alt="skycond" id="sky-cond">
                     </div>
                     <div class="col col-sm-12 col-md-12 col-lg-12 temps-container">
                         <div class="cur-temp-container">
@@ -118,9 +118,9 @@
                     <p class="line-item" id="dir2"></p>
                     <p class="line-item" id="speed2"></p>
                     </div>
-                    <div>
+                    <div class="data-container">
                         <p class="line-item" id="temp2"></p>
-                    </div class="data-container">
+                    </div>
                 </div>
                 <hr class="col col-12 hr2">
 
@@ -154,9 +154,9 @@
                     <p class="line-item" id="dir5"></p>
                     <p class="line-item" id="speed5"></p>
                     </div>
-                    <div>
+                    <div class="data-container">
                         <p class="line-item" id="temp5"></p>
-                    </div class="data-container">
+                    </div>
                 </div>
                 <hr class="col col-12 hr2">
 
@@ -307,9 +307,9 @@
                     <p class="line-item" id="fordir2"></p>
                     <p class="line-item" id="forspeed2"></p>
                     </div>
-                    <div>
+                    <div class="data-container">
                         <p class="line-item" id="fortemp2"></p>
-                    </div class="data-container">
+                    </div>
                 </div>
                 <hr class="col col-12 hr2">
 
@@ -343,9 +343,9 @@
                     <p class="line-item" id="fordir5"></p>
                     <p class="line-item" id="forspeed5"></p>
                     </div>
-                    <div>
+                    <div class="data-container">
                         <p class="line-item" id="fortemp5"></p>
-                    </div class="data-container">
+                    </div>
                 </div>
                 <hr class="col col-12 hr2">
 
